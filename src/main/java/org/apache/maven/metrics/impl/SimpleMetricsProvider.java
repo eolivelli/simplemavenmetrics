@@ -75,6 +75,7 @@ public class SimpleMetricsProvider implements MetricsProvider {
     private static final class DefaultMetricsContext implements MetricsContext {
 
         private final ConcurrentMap<String, Gauge> gauges = new ConcurrentHashMap<>();
+        private final ConcurrentMap<String, String> gaugesDescriptions = new ConcurrentHashMap<>();
         private final ConcurrentMap<String, SimpleCounter> counters = new ConcurrentHashMap<>();
         private final ConcurrentMap<String, AvgMinMaxPercentileCounter> summaries = new ConcurrentHashMap<>();
         private final ConcurrentMap<String, AvgMinMaxPercentileCounterSet> summarySets = new ConcurrentHashMap<>();
@@ -86,35 +87,37 @@ public class SimpleMetricsProvider implements MetricsProvider {
         }
 
         @Override
-        public Counter getCounter(String name) {
+        public Counter getCounter(String name, String description) {
             return counters.computeIfAbsent(name, (n) -> {
-                return new SimpleCounter(n);
+                return new SimpleCounter(n, description);
             });
         }
 
         @Override
-        public void registerGauge(String name, Gauge gauge) {
+        public void registerGauge(String name, String description, Gauge gauge) {
             Objects.requireNonNull(gauge, "Cannot register a null Gauge for " + name);
             gauges.put(name, gauge);
+            gaugesDescriptions.put(name, description);
         }
 
         @Override
         public void unregisterGauge(String name) {
             gauges.remove(name);
+            gaugesDescriptions.remove(name);
         }
 
         @Override
-        public Summary getSummary(String name) {
+        public Summary getSummary(String name, String description) {
             return summaries.computeIfAbsent(name, (n) -> {
-                return new AvgMinMaxPercentileCounter(name);
+                return new AvgMinMaxPercentileCounter(name, description);
             });
 
         }
 
         @Override
-        public SummarySet getSummarySet(String name) {
+        public SummarySet getSummarySet(String name, String description) {
             return summarySets.computeIfAbsent(name, (n) -> {
-                return new AvgMinMaxPercentileCounterSet(name);
+                return new AvgMinMaxPercentileCounterSet(name, description);
             });
 
         }
@@ -123,17 +126,23 @@ public class SimpleMetricsProvider implements MetricsProvider {
             gauges.forEach((name, metric) -> {
                 Number value = metric.get();
                 if (value != null) {
-                    sink.accept(name, value);
+                    sink.accept(gaugesDescriptions.get(name) + "(" + name + ")", value);
                 }
             });
             counters.values().forEach(metric -> {
-                metric.values().forEach(sink);
+                sink.accept(metric.getDescription() + " (" + metric.getName() + ")", metric.get());
             });
             summaries.values().forEach(metric -> {
-                metric.values().forEach(sink);
+                metric.values().forEach((k, v) -> {
+                    sink.accept(metric.getDescription() + " (" + k + ")", v);
+
+                });
             });
             summarySets.values().forEach(metric -> {
-                metric.values().forEach(sink);
+                metric.values().forEach((k, v) -> {
+                    sink.accept(metric.getDescription() + " (" + k + ")", v);
+
+                });
             });
         }
 

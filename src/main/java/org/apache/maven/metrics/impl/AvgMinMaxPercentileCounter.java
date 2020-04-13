@@ -38,6 +38,7 @@ import org.apache.maven.metrics.Summary;
 public class AvgMinMaxPercentileCounter implements Summary {
 
     private final String name;
+    private final String description;
     private final AvgMinMaxCounter counter;
     private final ResettableUniformReservoir reservoir;
     private final Histogram histogram;
@@ -98,9 +99,10 @@ public class AvgMinMaxPercentileCounter implements Summary {
 
     }
 
-    public AvgMinMaxPercentileCounter(String name) {
+    public AvgMinMaxPercentileCounter(String name, String description) {
 
         this.name = name;
+        this.description = description;
         this.counter = new AvgMinMaxCounter(this.name);
         reservoir = new ResettableUniformReservoir();
         histogram = new Histogram(reservoir);
@@ -123,6 +125,14 @@ public class AvgMinMaxPercentileCounter implements Summary {
 
     public void add(long value) {
         addDataPoint(value);
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getDescription() {
+        return description;
     }
 
     public Map<String, Object> values() {

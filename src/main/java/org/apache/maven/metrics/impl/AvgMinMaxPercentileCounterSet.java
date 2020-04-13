@@ -15,7 +15,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.maven.metrics.impl;
 
 import java.util.LinkedHashMap;
@@ -23,26 +22,26 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import org.apache.maven.metrics.SummarySet;
 
-
 /**
- * Generic set of long counters that keep track of min/max/avg
- * for different keys.
- * The counter is thread-safe
+ * Generic set of long counters that keep track of min/max/avg for different
+ * keys. The counter is thread-safe
  */
 public class AvgMinMaxPercentileCounterSet implements SummarySet {
 
     private final String name;
+    private final String description;
 
     private ConcurrentHashMap<String, AvgMinMaxPercentileCounter> counters = new ConcurrentHashMap<>();
 
-    public AvgMinMaxPercentileCounterSet(String name) {
+    public AvgMinMaxPercentileCounterSet(String name, String description) {
         this.name = name;
+        this.description = description;
     }
 
     private AvgMinMaxPercentileCounter getCounterForKey(String key) {
         AvgMinMaxPercentileCounter counter = counters.get(key);
         if (counter == null) {
-            counters.putIfAbsent(key, new AvgMinMaxPercentileCounter(key + "_" + name));
+            counters.putIfAbsent(key, new AvgMinMaxPercentileCounter(key + "_" + name, description));
             counter = counters.get(key);
         }
 
@@ -68,6 +67,14 @@ public class AvgMinMaxPercentileCounterSet implements SummarySet {
     @Override
     public void add(String key, long value) {
         addDataPoint(key, value);
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getDescription() {
+        return description;
     }
 
     public Map<String, Object> values() {

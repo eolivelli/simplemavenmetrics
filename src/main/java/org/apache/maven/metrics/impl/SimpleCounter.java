@@ -15,21 +15,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.maven.metrics.impl;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
 import org.apache.maven.metrics.Counter;
 
 public class SimpleCounter implements Counter {
 
     private final String name;
+    private final String description;
     private final AtomicLong counter = new AtomicLong();
 
-    public SimpleCounter(String name) {
+    public SimpleCounter(String name, String description) {
         this.name = name;
+        this.description = description;
     }
 
     @Override
@@ -45,10 +44,12 @@ public class SimpleCounter implements Counter {
         return counter.get();
     }
 
-    public Map<String, Object> values() {
-        Map<String, Object> m = new LinkedHashMap<String, Object>();
-        m.put(name, this.get());
-        return m;
+    public String getName() {
+        return name;
+    }
+
+    public String getDescription() {
+        return description;
     }
 
 }
