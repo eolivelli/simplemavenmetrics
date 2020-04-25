@@ -110,11 +110,11 @@ public class AvgMinMaxCounter implements Summary {
 
     public Map<String, Object> values() {
         Map<String, Object> m = new LinkedHashMap<String, Object>();
-        m.put("avg_" + name, this.getAvg());
-        m.put("min_" + name, this.getMin());
-        m.put("max_" + name, this.getMax());
-        m.put("cnt_" + name, this.getCount());
-        m.put("sum_" + name, this.getTotal());
+        m.put(name + "_avg", this.getAvg());
+        m.put(name + "_min", this.getMin());
+        m.put(name + "_max", this.getMax());
+        m.put(name + "_count", this.getCount());
+        m.put(name + "_sum", this.getTotal());
         return m;
     }
 

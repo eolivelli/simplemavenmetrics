@@ -41,7 +41,7 @@ public class AvgMinMaxPercentileCounterSet implements SummarySet {
     private AvgMinMaxPercentileCounter getCounterForKey(String key) {
         AvgMinMaxPercentileCounter counter = counters.get(key);
         if (counter == null) {
-            counters.putIfAbsent(key, new AvgMinMaxPercentileCounter(key + "_" + name, description));
+            counters.putIfAbsent(key, new AvgMinMaxPercentileCounter(name + "_" + key, description));
             counter = counters.get(key);
         }
 

@@ -138,10 +138,9 @@ public class AvgMinMaxPercentileCounter implements Summary {
     public Map<String, Object> values() {
         Map<String, Object> m = new LinkedHashMap<>();
         m.putAll(counter.values());
-        m.put("p50_" + name, Math.round(this.histogram.getSnapshot().getMedian()));
-        m.put("p95_" + name, Math.round(this.histogram.getSnapshot().get95thPercentile()));
-        m.put("p99_" + name, Math.round(this.histogram.getSnapshot().get99thPercentile()));
-        m.put("p999_" + name, Math.round(this.histogram.getSnapshot().get999thPercentile()));
+        m.put(name + "_p50", Math.round(this.histogram.getSnapshot().getMedian()));
+        m.put(name + "_p95", Math.round(this.histogram.getSnapshot().get95thPercentile()));
+        m.put(name + "_p99", Math.round(this.histogram.getSnapshot().get99thPercentile()));
         return m;
     }
 

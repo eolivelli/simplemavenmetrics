@@ -41,7 +41,7 @@ public class AvgMinMaxCounterSet implements SummarySet {
     private AvgMinMaxCounter getCounterForKey(String key) {
         AvgMinMaxCounter counter = counters.get(key);
         if (counter == null) {
-            counters.putIfAbsent(key, new AvgMinMaxCounter(key + "_" + name));
+            counters.putIfAbsent(key, new AvgMinMaxCounter(name + "_" + key));
             counter = counters.get(key);
         }
 

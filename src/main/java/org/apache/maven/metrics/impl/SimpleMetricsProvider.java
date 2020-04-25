@@ -47,6 +47,7 @@ public class SimpleMetricsProvider implements MetricsProvider {
 
     @Override
     public void start() throws MetricsProviderLifeCycleException {
+        log.info("Starting SimpleMetricsProvider");
     }
 
     @Override
