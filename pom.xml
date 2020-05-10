@@ -14,7 +14,8 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
-        <mavenVersion>3.7.0-SNAPSHOT</mavenVersion>            
+        <mavenVersion>3.7.0-SNAPSHOT</mavenVersion>
+        <mavenMetricsVersion>1.0.0-SNAPSHOT</mavenMetricsVersion>            
     </properties>
     <dependencies>
     <dependency>
@@ -41,8 +42,8 @@
     </dependency>
     <dependency>
         <groupId>org.apache.maven</groupId>
-        <artifactId>maven-metrics</artifactId>
-        <version>${mavenVersion}</version>
+        <artifactId>maven-metrics-api</artifactId>
+        <version>${mavenMetricsVersion}</version>
         <scope>provided</scope>
     </dependency>
     <dependency>

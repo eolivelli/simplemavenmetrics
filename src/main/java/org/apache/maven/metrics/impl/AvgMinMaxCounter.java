@@ -29,7 +29,7 @@ import org.apache.maven.metrics.Summary;
  * Generic long counter that keep track of min/max/avg. The counter is
  * thread-safe
  */
-public class AvgMinMaxCounter implements Summary {
+public class AvgMinMaxCounter extends Summary {
 
     private final String name;
     private final AtomicLong total = new AtomicLong();

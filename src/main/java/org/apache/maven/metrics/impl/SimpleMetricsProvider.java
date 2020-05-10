@@ -36,7 +36,7 @@ import org.codehaus.plexus.logging.Logger;
  * It does not implement a real hierarchy of contexts, but metrics are flattened
  * in a single namespace.<br>
  */
-public class SimpleMetricsProvider implements MetricsProvider {
+public class SimpleMetricsProvider extends MetricsProvider {
 
     private final DefaultMetricsContext rootMetricsContext = new DefaultMetricsContext();
     private final Logger log;
@@ -73,7 +73,7 @@ public class SimpleMetricsProvider implements MetricsProvider {
         rootMetricsContext.reset();
     }
 
-    private static final class DefaultMetricsContext implements MetricsContext {
+    private static final class DefaultMetricsContext extends MetricsContext {
 
         private final ConcurrentMap<String, Gauge> gauges = new ConcurrentHashMap<>();
         private final ConcurrentMap<String, String> gaugesDescriptions = new ConcurrentHashMap<>();

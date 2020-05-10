@@ -38,7 +38,7 @@ import org.codehaus.plexus.logging.Logger;
  */
 @Named( MetricsSystem.HINT )
 @Singleton
-public class SimpleMetricsSystem implements MetricsSystem {
+public class SimpleMetricsSystem extends MetricsSystem {
  
     private final Logger log;
     private final MetricsProvider metricsProvider;

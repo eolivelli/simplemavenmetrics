@@ -20,7 +20,7 @@ package org.apache.maven.metrics.impl;
 import java.util.concurrent.atomic.AtomicLong;
 import org.apache.maven.metrics.Counter;
 
-public class SimpleCounter implements Counter {
+public class SimpleCounter extends Counter {
 
     private final String name;
     private final String description;

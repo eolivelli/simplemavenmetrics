@@ -35,7 +35,7 @@ import org.apache.maven.metrics.Summary;
  * Generic long counter that keep track of min/max/avg/percentiles.
  * The counter is thread-safe
  */
-public class AvgMinMaxPercentileCounter implements Summary {
+public class AvgMinMaxPercentileCounter extends Summary {
 
     private final String name;
     private final String description;

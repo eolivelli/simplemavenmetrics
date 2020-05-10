@@ -26,7 +26,7 @@ import org.apache.maven.metrics.SummarySet;
  * Generic set of long counters that keep track of min/max/avg for different
  * keys. The counter is thread-safe
  */
-public class AvgMinMaxPercentileCounterSet implements SummarySet {
+public class AvgMinMaxPercentileCounterSet extends SummarySet {
 
     private final String name;
     private final String description;

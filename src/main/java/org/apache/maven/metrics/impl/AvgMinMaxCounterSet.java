@@ -18,7 +18,6 @@
 
 package org.apache.maven.metrics.impl;
 
-import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import org.apache.maven.metrics.SummarySet;
@@ -28,7 +27,7 @@ import org.apache.maven.metrics.SummarySet;
  * for different keys.
  * The counter is thread-safe
  */
-public class AvgMinMaxCounterSet implements SummarySet {
+public class AvgMinMaxCounterSet extends SummarySet {
 
     private final String name;
 
